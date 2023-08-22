@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package camera3d_interfaces;
+
+import "sensor_msgs.proto";
+
+message RGBDCameraData {
+  sensor_msgs.Image color = 1;
+  sensor_msgs.Image depth = 2;
+  sensor_msgs.PointCloud2 pointcloud = 3;
+  sensor_msgs.CameraInfo color_camera_info = 4;
+  sensor_msgs.CameraInfo depth_camera_info = 5;
+}

@@ -1,0 +1,8 @@
+{
+    "DETECTION_TYPE": "RGBMaskRCNNTorchServicer",
+    "MODEL_WEIGHT": "model_best@2999.pth",
+    "CONFIG_FILE": "depallet_50.yaml", 
+    "MIN_SIZE": 416,
+    "SCORE_THRESH_TEST": 0.8,
+    "CATEGORY_FILE": "categories.txt"
+}

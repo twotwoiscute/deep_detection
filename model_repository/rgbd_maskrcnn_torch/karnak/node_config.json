@@ -1,0 +1,11 @@
+{
+    "DETECTION_TYPE": "RGBDMaskRCNNTorchServicer",
+    "MODEL_WEIGHT": "karnak_20221229.pth",
+    "DEPTH_MIN": 1000,
+    "DEPTH_MAX": 1500,
+    "MIN_SIZE": 384,
+    "CONFIG_FILE": "singulation.yaml",
+    "SCORE_THRESH_TEST": 0.8,
+    "CATEGORY_FILE": "categories.txt"
+}
+

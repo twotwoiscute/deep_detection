@@ -1,0 +1,2 @@
+from .rgbdmaskrcnn_trt import RGBDMaskRCNNTensorRTInfer
+from .rgbmaskrcnn_torch import RGBMaskRCNNTorchInfer

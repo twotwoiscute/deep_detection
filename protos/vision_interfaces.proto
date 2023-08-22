@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package vision_interfaces;
+
+import "sensor_msgs.proto";
+import "camera3d_interfaces.proto";
+
+message DetectionErrorCodes {
+  enum ErrorCode {
+    NONE = 0;
+    SUCCESS = 1;
+    FAIL = -1;
+  }
+  ErrorCode value = 1;
+}
+
+message ItemClassificationInfo {
+  enum Type {
+    NONE = 0;
+    BOX = 1;
+    ENVELOPE = 2;
+    PACKAGE = 3;
+    TEXT = 4;
+    BARCODE = 5;
+    PALLET = 6;
+    TOTE = 7;
+    PERSON = 8;
+    VEHICLE = 9;
+    OBSTACLE = 10;
+  }
+  Type type = 1;
+  float score = 2;
+}
+
+message Pixel {
+  uint32 x = 1;
+  uint32 y = 2;
+}
+
+message Contour {
+  repeated Pixel contour = 1;
+}
+
+message SurfaceSegment {
+  enum Type {
+    option allow_alias = true;
+    PLANE = 0;
+    BOX = 1;
+    CIRCLE = 2;
+    ELLIPSE = 3;
+    BOX_LENGTH = 0;
+    BOX_WIDTH = 1;
+    BOX_ROT = 2;
+    CIRCLE_RAD = 0;
+    ELLIPSE_MAJOR = 0;
+    ELLIPSE_MINOR = 1;
+    ELLIPSE_ROT = 2;
+  }
+  Type type = 1;
+  repeated double coefficients = 2;
+  repeated double dimensions = 3;
+}
+
+message DetectionResult {
+  ItemClassificationInfo classification = 1;
+  sensor_msgs.RegionOfInterest bbox = 2;
+  repeated Contour contours = 3;
+  sensor_msgs.Image mask = 4;
+  repeated uint32 indices = 5;
+  sensor_msgs.PointCloud2 segment = 6;
+  SurfaceSegment surface = 7;
+}
+
+message DetectionDataTypes {
+  enum Type {
+    CLASSIFICATION_INFO = 0;
+    BBOX = 1;
+    MASK = 2;
+    INDICES = 3;
+    SURFACE = 4;
+    CONTOURS = 100;
+    SEGMENT = 101;
+  }
+  repeated Type types = 1;
+}
+
+message DetectClassifyItemRequest {
+  camera3d_interfaces.RGBDCameraData camera_data = 1;
+  sensor_msgs.RegionOfInterest roi = 2;
+  DetectionDataTypes data_types = 3;
+}
+
+message DetectClassifyItemResponse {
+  DetectionErrorCodes error_code = 1;
+  repeated DetectionResult detection_result_array = 2;
+}
+
+service DetectClassifyItem {
+  rpc Call (DetectClassifyItemRequest) returns (DetectClassifyItemResponse) {}
+}

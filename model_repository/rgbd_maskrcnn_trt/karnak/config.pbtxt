@@ -1,0 +1,61 @@
+name: "rgbdmaskrcnn"
+platform: "tensorrt_plan"
+max_batch_size: 0
+
+input[
+    {
+        name: "0"
+        data_type: TYPE_FP32
+        dims: [4, 384, 403]
+    }
+]
+
+output[
+    {
+        name: "num_detections_box_outputs"
+        data_type: TYPE_INT32
+        dims: [ 1, 1 ]
+    },
+    {
+        name: "detection_boxes_box_outputs"
+        data_type: TYPE_FP32
+        dims: [ 1, 100, 4 ]
+    },
+    {
+        name: "detection_scores_box_outputs"
+        data_type: TYPE_FP32
+        dims: [ 1, 100 ]
+    },
+    {
+        name: "detection_classes_box_outputs"
+        data_type: TYPE_INT32
+        dims: [ 1, 100 ]
+    },
+    {
+        name: "detection_masks"
+        data_type: TYPE_FP32
+        dims: [ 1, 100, 28, 28 ]
+    }
+]
+
+instance_group[
+    {
+        count: 1
+        kind: KIND_GPU
+    }
+]
+
+model_warmup[
+    {
+        name: "rgbdmaskrcnn"
+        batch_size: 1
+        inputs: {
+            key: "0"
+            value: {
+                data_type: TYPE_FP32
+                dims: [4, 384, 403]
+                zero_data: true
+            }
+        }
+    }
+]

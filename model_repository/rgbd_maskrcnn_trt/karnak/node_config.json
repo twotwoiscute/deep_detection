@@ -1,0 +1,10 @@
+{
+    "DETECTION_TYPE": "RGBDMaskRCNNTensorRTServicer",
+    "ENGINE": "maskrcnn_engine.trt",
+    "DEPTH_MIN": 1000,
+    "DEPTH_MAX": 1500,
+    "MIN_SIZE": 384,
+    "SCORE_THRESHOLD": 0.8,
+    "MASK_SCORE_THRESHOLD": 0.5,
+    "CATEGORY_FILE": "categories.txt"
+}

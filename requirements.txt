@@ -1,0 +1,19 @@
+tensorboard==2.13.0
+cmake==3.26.3
+fvcore==0.1.5.post20221221
+albumentations==1.1.0
+mdutils==1.4.0
+shapely==1.7.1
+numpy==1.19.5
+
+-e git+https://gitlab.dorabot.com/vision/learning/detectron2.git@feature/rgbd_maskrcnn#egg=detectron2
+
+# TensorRT
+cuda-python==12.1.0
+Pillow; python_version<"3.6"
+Pillow==9.0.1; python_version>="3.6"
+onnx==1.8.1
+onnxruntime==1.8.0
+
+protobuf==3.20.0
+loguru==0.7.0

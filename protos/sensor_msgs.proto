@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package sensor_msgs;
+
+import "std_msgs.proto";
+
+message Image {
+  uint32 height = 1;
+  uint32 width = 2;
+  string encoding = 3;
+  bool is_bigendian = 4;
+  uint32 step = 5;
+  bytes data = 6;
+}
+
+message RegionOfInterest {
+  uint32 x_offset = 1;
+  uint32 y_offset = 2;
+  uint32 height = 3;
+  uint32 width = 4;
+  bool do_rectify = 5;
+}
+
+message CameraInfo {
+  uint32 height = 1;
+  uint32 width  = 2;
+  string distortion_model = 3;
+  repeated double d = 4;
+  repeated double k = 5;
+  repeated double r = 6;
+  repeated double p = 7;
+  uint32 binning_x = 8;
+  uint32 binning_y = 9;
+  RegionOfInterest roi = 10;
+}
+
+message PointField {
+  enum DataType {
+    NONE = 0;
+    INT8 = 1;
+    UINT8 = 2;
+    INT16 = 3;
+    UINT16 = 4;
+    INT32 = 5;
+    UINT32 = 6;
+    FLOAT32 = 7;
+    FLOAT64 = 8;
+  }
+  string name = 1;
+  uint32 offset = 2;
+  DataType datatype = 3;
+  uint32 count = 4;
+}
+
+message PointCloud2 {
+  std_msgs.Header header = 1;
+  uint32 height = 2;
+  uint32 width = 3;
+  repeated PointField fields = 4;
+  bool is_bigendian = 5;
+  uint32 point_step = 6;
+  uint32 row_step = 7;
+  bytes data = 8;
+  bool is_dense = 9;
+}
